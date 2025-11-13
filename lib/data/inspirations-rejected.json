@@ -1,0 +1,29 @@
+[
+  {
+    "id": "insp8",
+    "titre": "Travailler à distance efficacement",
+    "description": "Conseils pour optimiser votre productivité en télétravail",
+    "contenu": "Le télétravail nécessite une organisation particulière. Découvrez comment être productif à distance...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Productivité",
+    "statut": "rejected",
+    "auteur": "Anne Petit",
+    "datePublication": null,
+    "createdAt": "2025-01-05T09:00:00Z",
+    "updatedAt": "2025-01-05T15:30:00Z"
+  },
+  {
+    "id": "insp10",
+    "titre": "Conseils non vérifiés",
+    "description": "Contenu non validé",
+    "contenu": "Ce contenu n'a pas été vérifié et ne respecte pas nos standards de qualité.",
+    "image": null,
+    "categorie": "Divers",
+    "statut": "rejected",
+    "auteur": "Auteur inconnu",
+    "datePublication": null,
+    "createdAt": "2025-01-04T08:00:00Z",
+    "updatedAt": "2025-01-04T12:00:00Z"
+  }
+]
+

@@ -1,0 +1,22 @@
+0 verbose cli /Users/saidibenariba/.nvm/versions/node/v22.20.0/bin/node /Users/saidibenariba/.nvm/versions/node/v22.20.0/lib/node_modules/npm/bin/npm-cli.js
+1 info using npm@10.9.3
+2 info using node@v22.20.0
+3 silly config load:file:/Users/saidibenariba/.nvm/versions/node/v22.20.0/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/saidibenariba/dev/nextjs-starter-kit/.npmrc
+5 silly config load:file:/Users/saidibenariba/.npmrc
+6 silly config load:file:/Users/saidibenariba/.nvm/versions/node/v22.20.0/etc/npmrc
+7 verbose title npm exec shadcn@latest add table --yes
+8 verbose argv "exec" "--" "shadcn@latest" "add" "table" "--yes"
+9 verbose logfile logs-max:10 dir:/Users/saidibenariba/dev/nextjs-starter-kit/.npm/_logs/2025-11-06T18_05_34_859Z-
+10 verbose logfile /Users/saidibenariba/dev/nextjs-starter-kit/.npm/_logs/2025-11-06T18_05_34_859Z-debug-0.log
+11 silly logfile done cleaning log files
+12 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+13 http fetch GET 200 https://registry.npmjs.org/shadcn 276ms (cache revalidated)
+14 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+15 silly packumentCache heap:4345298944 maxSize:1086324736 maxEntrySize:543162368
+16 verbose cwd /Users/saidibenariba/dev/nextjs-starter-kit
+17 verbose os Darwin 25.0.0
+18 verbose node v22.20.0
+19 verbose npm  v10.9.3
+20 verbose exit 0
+21 info ok

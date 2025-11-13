@@ -1,0 +1,281 @@
+---
+description: Next.js, React, Tailwindcss, Shadcn Rules for Illico Platform
+globs:
+alwaysApply: true
+---
+
+- You are an expert in TypeScript, Node.js, Next.js App Router, React, Shadcn UI, and Tailwind and Framer Motion.
+
+- Code Style and Structure
+
+  - Write concise, technical TypeScript code with accurate examples.
+  - Use functional and declarative programming patterns; avoid classes.
+  - Prefer iteration and modularization over code duplication.
+  - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError).
+  - Structure files: exported component, subcomponents, helpers, static content, types.
+
+- Naming Conventions
+
+  - All components should go in client/components and be named like new-component.tsx
+  - Use lowercase with dashes for directories (e.g., components/auth-wizard).
+  - Favor named exports for components.
+
+- TypeScript Usage
+
+  - Use TypeScript for all code; prefer interfaces over types.
+  - Avoid enums; use maps instead.
+  - Use functional components with TypeScript interfaces.
+
+- Syntax and Formatting
+
+  - Use the "function" keyword for pure functions.
+  - Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements.
+  - Use declarative JSX.
+
+- UI and Styling
+
+  - Use Shadcn UI, and Tailwind for components and styling.
+  - Implement responsive design with Tailwind CSS; use a mobile-first approach.
+
+- Performance Optimization
+
+  - Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC).
+  - Wrap client components in Suspense with fallback.
+  - Use dynamic loading for non-critical components.
+  - Optimize images: use WebP format, include size data, implement lazy loading.
+
+- Key Conventions
+
+  - Use 'nuqs' for URL search parameter state management.
+  - Optimize Web Vitals (LCP, CLS, FID).
+  - Limit 'use client':
+    - Favor server components and Next.js SSR.
+    - Use only for Web API access in small components.
+    - Avoid for data fetching or state management.
+  - Follow Next.js docs for Data Fetching, Rendering, and Routing.
+  - While creating placeholder images as a part of your seed data, use https://placekitten.com/
+  - Place both the /app and /components folders under the /client directory. This organization offers several benefits:
+    - It helps maintain a clean and organized project structure.
+    - It allows for easier navigation and management of components and pages.
+    - It adheres to common industry standards, making it easier for other developers to understand and contribute to the project.
+    - It provides a clear separation between application logic (in /client/app) and UI components (in /client/components), improving code readability and reusability.
+    - It simplifies the process of creating new pages and components, as you can easily find the corresponding files in the /client directory.
+    - It makes the project more modular and easier to scale as the application grows.
+    - It adheres to the principle of separation of concerns, where different aspects of the application are handled by different directories.
+
+## Project Structure
+
+### Client Structure (Next.js Frontend)
+client/
+├── app/ # Next.js App Router pages
+│ ├── auth/ # Authentication pages
+│ ├── dashboard/ # Dashboard pages
+│ ├── prestataire/ # Provider pages
+│ ├── produits/ # Product pages
+│ └── services/ # Service pages
+├── components/ # Reusable UI components
+│ ├── ui/ # Shadcn UI components
+│ ├── auth/ # Authentication components
+│ ├── dashboard/ # Dashboard components
+│ ├── forms/ # Form components
+│ └── layout/ # Layout components
+├── hooks/ # Custom React hooks
+├── lib/ # Utility libraries
+├── store/ # Redux store
+├── types/ # TypeScript type definitions
+└── validation/ # Zod validation schemas
+
+## Server Structure (Express.js Backend)
+server/
+├── src/
+│ ├── controllers/ # Route controllers
+│ ├── routes/ # API route definitions
+│ ├── services/ # Business logic services
+│ ├── middlewares/ # Express middlewares
+│ ├── db/ # Database configuration
+│ │ ├── schema/ # Drizzle schema files
+│ │ └── migrations/ # Database migrations
+│ ├── types/ # TypeScript type definitions
+│ ├── utils/ # Utility functions
+│ └── validation/ # Zod validation schemas
+├── uploads/ # File upload storage
+└── docs/ # API documentation
+
+## Components Organization
+
+### Client Components Structure
+
+Within the client/components folder, organize components by type or feature:
+
+**By Type**: Group components like forms, buttons, layout elements, etc.
+
+**By Feature**: For larger applications, group components related to specific features or domains
+
+For example:
+client/components
+├── /ui
+│ ├── /button
+│ ├── /modal
+│ └── /card
+├── /forms
+│ ├── /TextField
+│ └── /Select
+├── /auth
+│ ├── /LoginForm
+│ └── /SignupForm
+├── /dashboard
+│ ├── /Sidebar
+│ └── /StatsCard
+└── /layout
+├── /Navbar
+└── /Footer
+
+- **Private Components**: For components used only within specific pages, you can create a _components folder within the relevant /app subdirectory.
+
+- **Shared Components**: The /client/components folder should contain reusable components used across multiple pages or features.
+
+- **Modular Approach**: As your project grows, consider adopting a more modular structure, where each feature or domain has its own folder containing components, hooks, and utilities specific to that feature.
+
+## API Integration
+
+- Use the server API endpoints for all data fetching
+- Implement proper error handling for API calls
+- Use custom hooks for API interactions
+- Follow the established API response format with `ApiResponse<T>`
+- Implement proper loading and error states for API calls
+
+## State Management
+
+### Local State
+- Use useState for component-level state
+- Implement useReducer for complex state logic
+- Use useContext for shared state within component trees
+- Implement proper state initialization with default values
+- Use useCallback for memoizing callback functions
+- Implement useMemo for expensive computations
+- Avoid inline function definitions in JSX
+
+### Global State with Redux Toolkit
+- Use Redux Toolkit for global state management (auth, notifications, user preferences)
+- Use createSlice to define state, reducers, and actions together
+- Avoid using createReducer and createAction unless necessary
+- Normalize state structure to avoid deeply nested data
+- Use selectors to encapsulate state access and computation
+- Avoid large, all-encompassing slices; separate concerns by feature
+- Implement proper state persistence where needed
+- Use custom hooks for business logic and API calls
+
+### State Management Patterns
+- **Auth State**: Store user information, authentication status, and permissions
+- **UI State**: Store loading states, modal visibility, form states
+- **Data State**: Cache API responses, manage data fetching states
+- **Notification State**: Store and manage user notifications
+- **Theme State**: Store user preferences for dark/light mode
+
+### Redux Store Structure
+store/
+├── index.ts # Store configuration
+├── hooks.ts # Typed hooks
+└── slices/
+├── authSlice.ts # Authentication state
+├── uiSlice.ts # UI state
+└── dataSlice.ts # Data caching state
+
+
+### Custom Hooks for State Management
+- Create custom hooks for complex state logic
+- Use custom hooks for API interactions
+- Implement proper cleanup in useEffect hooks
+- Use custom hooks to encapsulate business logic
+
+## Authentication & Authorization
+
+- Use JWT-based authentication with refresh tokens
+- Implement role-based access control (RBAC)
+- Use middleware for authentication and authorization
+- Handle authentication errors gracefully
+
+## Database Integration
+
+- Use Drizzle ORM for all database interactions
+- Implement proper database schema with relations
+- Use prepared statements and parameterized queries
+- Handle database errors gracefully
+
+## File Upload & Storage
+
+- Use AWS S3 for file storage
+- Implement proper file validation and sanitization
+- Handle file upload errors gracefully
+- Use secure file naming and path generation
+
+## Real-time Features
+
+- Use Socket.io for real-time messaging and notifications
+- Implement proper connection management
+- Handle connection errors and reconnection logic
+- Use rooms and namespaces for organized communication
+
+## Error Handling and Validation
+
+### Form Validation
+- Use Zod for schema validation
+- Implement proper error messages
+- Use React Hook Form for form management
+- Implement proper form state management
+
+### Error Boundaries
+- Use error boundaries to catch and handle errors in React component trees gracefully
+- Log caught errors to an external service (e.g., Sentry) for tracking and debugging
+- Design user-friendly fallback UIs to display when errors occur
+
+## Testing
+
+### Unit Testing
+- Write thorough unit tests to validate individual functions and components
+- Use Jest and React Testing Library for reliable and efficient testing
+- Follow patterns like Arrange-Act-Assert to ensure clarity and consistency
+- Mock external dependencies and API calls to isolate unit tests
+
+### Integration Testing
+- Focus on user workflows to ensure app functionality
+- Set up and tear down test environments properly
+- Use snapshot testing selectively to catch unintended UI changes
+- Leverage testing utilities for cleaner and more readable tests
+
+## Accessibility (a11y)
+
+### Core Requirements
+- Use semantic HTML for meaningful structure
+- Apply accurate ARIA attributes where needed
+- Ensure full keyboard navigation support
+- Manage focus order and visibility effectively
+- Maintain accessible color contrast ratios
+- Follow a logical heading hierarchy
+- Make all interactive elements accessible
+- Provide clear and accessible error feedback
+
+## Security
+
+- Implement input sanitization to prevent XSS attacks
+- Use DOMPurify for sanitizing HTML content
+- Use proper authentication methods
+- Implement proper CORS policies
+- Use environment variables for sensitive configuration
+
+## Internationalization (i18n)
+
+- Use next-i18next for translations
+- Implement proper locale detection
+- Use proper number and date formatting
+- Implement proper RTL support
+- Use proper currency formatting
+
+## Documentation
+
+- Use JSDoc for documentation
+- Document all public functions, classes, methods, and interfaces
+- Add examples when appropriate
+- Use complete sentences with proper punctuation
+- Keep descriptions clear and concise
+- Use proper markdown formatting

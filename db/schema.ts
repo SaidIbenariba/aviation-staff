@@ -83,3 +83,18 @@ export const subscription = pgTable("subscription", {
   customFieldData: text("customFieldData"), // JSON string
   userId: text("userId").references(() => user.id),
 });
+
+// Inspiration table
+export const inspiration = pgTable("inspiration", {
+  id: text("id").primaryKey(),
+  titre: text("titre").notNull(),
+  description: text("description"),
+  contenu: text("contenu"),
+  image: text("image"),
+  categorie: text("categorie"),
+  statut: text("statut").notNull().default("pending"), // pending, approved, rejected, archived
+  auteur: text("auteur"),
+  datePublication: timestamp("datePublication"),
+  createdAt: timestamp("createdAt").notNull().defaultNow(),
+  updatedAt: timestamp("updatedAt").notNull().defaultNow(),
+});

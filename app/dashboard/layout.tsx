@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
-import DashboardTopNav from "./_components/navbar";
-import DashboardSideBar from "./_components/sidebar";
-import Chatbot from "./_components/chatbot";
+import AviationNavbar from "./_components/aviation-navbar";
+import AviationSidebar from "./_components/aviation-sidebar";
 
 export default async function DashboardLayout({
   children,
@@ -10,11 +9,8 @@ export default async function DashboardLayout({
 }) {
   return (
     <div className="flex h-screen overflow-hidden w-full">
-      <DashboardSideBar />
-      <main className="flex-1 overflow-y-auto">
-        <DashboardTopNav>{children}</DashboardTopNav>
-      </main>
-      <Chatbot />
+      <AviationSidebar />
+      <AviationNavbar>{children}</AviationNavbar>
     </div>
   );
 }

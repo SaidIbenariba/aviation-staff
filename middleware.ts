@@ -10,6 +10,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Demo mode: allow dashboard access without authentication
+  const isDemoMode = !process.env.DATABASE_URL || 
+    process.env.DATABASE_URL === 'your-neon-database-url';
+
+  if (isDemoMode && pathname.startsWith("/dashboard")) {
+    // Allow access to dashboard in demo mode
+    return NextResponse.next();
+  }
+
   if (sessionCookie && ["/sign-in", "/sign-up"].includes(pathname)) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }

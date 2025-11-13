@@ -1,0 +1,42 @@
+[
+  {
+    "id": "insp6",
+    "titre": "Négocier son salaire avec confiance",
+    "description": "Guide complet pour négocier une rémunération équitable",
+    "contenu": "La négociation salariale peut être intimidante. Suivez ces conseils pour négocier avec assurance...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Carrière",
+    "statut": "pending",
+    "auteur": "Julie Moreau",
+    "datePublication": null,
+    "createdAt": "2025-01-16T10:00:00Z",
+    "updatedAt": "2025-01-16T10:00:00Z"
+  },
+  {
+    "id": "insp7",
+    "titre": "Reconversion professionnelle : par où commencer ?",
+    "description": "Étapes clés pour réussir votre changement de carrière",
+    "contenu": "Changer de carrière est une décision importante. Voici comment bien préparer votre reconversion...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Carrière",
+    "statut": "pending",
+    "auteur": "Marc Lefebvre",
+    "datePublication": null,
+    "createdAt": "2025-01-17T14:20:00Z",
+    "updatedAt": "2025-01-17T14:20:00Z"
+  },
+  {
+    "id": "insp9",
+    "titre": "Les tendances du recrutement en 2025",
+    "description": "Comment les entreprises recrutent aujourd'hui",
+    "contenu": "Le recrutement évolue avec les nouvelles technologies. Découvrez les tendances actuelles...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Recrutement",
+    "statut": "pending",
+    "auteur": "Lucie Rousseau",
+    "datePublication": null,
+    "createdAt": "2025-01-18T11:00:00Z",
+    "updatedAt": "2025-01-18T11:00:00Z"
+  }
+]
+

@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { db } from "@/db/drizzle";
+import { db, isDatabaseConfigured } from "@/db/drizzle";
 import { subscription } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
@@ -32,6 +32,10 @@ export async function getSubscriptionDetails(): Promise<SubscriptionDetailsResul
     });
 
     if (!session?.user?.id) {
+      return { hasSubscription: false };
+    }
+
+    if (!isDatabaseConfigured) {
       return { hasSubscription: false };
     }
 

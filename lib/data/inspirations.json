@@ -1,0 +1,107 @@
+[
+  {
+    "id": "insp1",
+    "titre": "Conseils pour réussir l'entretien d'embauche",
+    "description": "Découvrez les meilleures pratiques pour impressionner lors d'un entretien",
+    "contenu": "L'entretien d'embauche est une étape cruciale dans votre recherche d'emploi. Voici quelques conseils pour vous aider à réussir...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Carrière",
+    "statut": "approved",
+    "auteur": "Jean Dupont",
+    "datePublication": "2025-01-15T10:00:00Z",
+    "createdAt": "2025-01-10T08:00:00Z",
+    "updatedAt": "2025-01-15T10:00:00Z"
+  },
+  {
+    "id": "insp2",
+    "titre": "Comment rédiger un CV efficace",
+    "description": "Les secrets d'un CV qui attire l'attention des recruteurs",
+    "contenu": "Un CV bien structuré est essentiel pour se démarquer. Voici comment créer un CV qui retient l'attention...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Carrière",
+    "statut": "approved",
+    "auteur": "Marie Martin",
+    "datePublication": "2025-01-14T14:30:00Z",
+    "createdAt": "2025-01-09T09:00:00Z",
+    "updatedAt": "2025-01-14T14:30:00Z"
+  },
+  {
+    "id": "insp3",
+    "titre": "Développer son réseau professionnel",
+    "description": "Stratégies pour construire et entretenir un réseau solide",
+    "contenu": "Le networking est un élément clé de la réussite professionnelle. Découvrez comment développer votre réseau...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Réseautage",
+    "statut": "approved",
+    "auteur": "Pierre Dubois",
+    "datePublication": "2025-01-13T11:20:00Z",
+    "createdAt": "2025-01-08T10:00:00Z",
+    "updatedAt": "2025-01-13T11:20:00Z"
+  },
+  {
+    "id": "insp4",
+    "titre": "Gérer le stress au travail",
+    "description": "Techniques pour maintenir un équilibre vie professionnelle/personnelle",
+    "contenu": "Le stress professionnel peut affecter votre bien-être. Apprenez à le gérer efficacement...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Bien-être",
+    "statut": "approved",
+    "auteur": "Sophie Laurent",
+    "datePublication": "2025-01-12T16:45:00Z",
+    "createdAt": "2025-01-07T08:30:00Z",
+    "updatedAt": "2025-01-12T16:45:00Z"
+  },
+  {
+    "id": "insp5",
+    "titre": "Les compétences les plus recherchées en 2025",
+    "description": "Découvrez les compétences qui font la différence sur le marché du travail",
+    "contenu": "Le marché du travail évolue rapidement. Voici les compétences les plus demandées cette année...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Compétences",
+    "statut": "approved",
+    "auteur": "Thomas Bernard",
+    "datePublication": "2025-01-11T09:15:00Z",
+    "createdAt": "2025-01-06T11:00:00Z",
+    "updatedAt": "2025-01-11T09:15:00Z"
+  },
+  {
+    "id": "insp6",
+    "titre": "Négocier son salaire avec confiance",
+    "description": "Guide complet pour négocier une rémunération équitable",
+    "contenu": "La négociation salariale peut être intimidante. Suivez ces conseils pour négocier avec assurance...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Carrière",
+    "statut": "pending",
+    "auteur": "Julie Moreau",
+    "datePublication": null,
+    "createdAt": "2025-01-16T10:00:00Z",
+    "updatedAt": "2025-01-16T10:00:00Z"
+  },
+  {
+    "id": "insp7",
+    "titre": "Reconversion professionnelle : par où commencer ?",
+    "description": "Étapes clés pour réussir votre changement de carrière",
+    "contenu": "Changer de carrière est une décision importante. Voici comment bien préparer votre reconversion...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Carrière",
+    "statut": "pending",
+    "auteur": "Marc Lefebvre",
+    "datePublication": null,
+    "createdAt": "2025-01-17T14:20:00Z",
+    "updatedAt": "2025-01-17T14:20:00Z"
+  },
+  {
+    "id": "insp8",
+    "titre": "Travailler à distance efficacement",
+    "description": "Conseils pour optimiser votre productivité en télétravail",
+    "contenu": "Le télétravail nécessite une organisation particulière. Découvrez comment être productif à distance...",
+    "image": "https://placekitten.com/400/300",
+    "categorie": "Productivité",
+    "statut": "rejected",
+    "auteur": "Anne Petit",
+    "datePublication": null,
+    "createdAt": "2025-01-05T09:00:00Z",
+    "updatedAt": "2025-01-05T15:30:00Z"
+  }
+]
+

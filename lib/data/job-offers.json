@@ -1,0 +1,93 @@
+[
+  {
+    "id": "jo1",
+    "offreNumero": 1,
+    "datePublication": "2025-06-17 00:00",
+    "titre": "Flydubai - Cabin Crew 0625",
+    "entreprise": "Flydubai",
+    "etat": "En ligne",
+    "contenu": "Recherche de personnel de cabine pour vols long-courriers. Expérience requise minimum 2 ans."
+  },
+  {
+    "id": "jo2",
+    "offreNumero": 2,
+    "datePublication": "2025-06-17 00:00",
+    "titre": "Volotea - Cabin Crew - Toulouse",
+    "entreprise": "Volotea",
+    "etat": "En ligne",
+    "contenu": "Poste de personnel navigant commercial basé à Toulouse. CDI proposé."
+  },
+  {
+    "id": "jo3",
+    "offreNumero": 3,
+    "datePublication": "2025-06-16 00:00",
+    "titre": "Ryanair - Cabin Crew - Toulouse",
+    "entreprise": "Ryanair",
+    "etat": "En ligne",
+    "contenu": "Recrutement de personnel de cabine pour la base de Toulouse."
+  },
+  {
+    "id": "jo4",
+    "offreNumero": 4,
+    "datePublication": "2025-06-15 00:00",
+    "titre": "Air France - Agent d'escale CDG",
+    "entreprise": "Air France",
+    "etat": "En ligne",
+    "contenu": "Recherche d'agents d'escale pour l'aéroport Charles de Gaulle. Formation assurée."
+  },
+  {
+    "id": "jo5",
+    "offreNumero": 5,
+    "datePublication": "2025-06-14 00:00",
+    "titre": "Emirates - Cabin Crew",
+    "entreprise": "Emirates",
+    "etat": "En ligne",
+    "contenu": "Opportunité de carrière avec Emirates. Voyages internationaux, excellentes conditions."
+  },
+  {
+    "id": "jo6",
+    "offreNumero": 6,
+    "datePublication": "2025-06-13 00:00",
+    "titre": "Lufthansa - Pilote",
+    "entreprise": "Lufthansa",
+    "etat": "En ligne",
+    "contenu": "Recrutement de pilotes de ligne. Licence ATPL requise."
+  },
+  {
+    "id": "jo7",
+    "offreNumero": 7,
+    "datePublication": "2025-06-12 00:00",
+    "titre": "EasyJet - Cabin Crew - Paris",
+    "entreprise": "EasyJet",
+    "etat": "En ligne",
+    "contenu": "Personnel de cabine recherché pour la base parisienne."
+  },
+  {
+    "id": "jo8",
+    "offreNumero": 8,
+    "datePublication": "2025-06-11 00:00",
+    "titre": "British Airways - Ground Staff",
+    "entreprise": "British Airways",
+    "etat": "En ligne",
+    "contenu": "Postes disponibles au sol dans différents aéroports européens."
+  },
+  {
+    "id": "jo9",
+    "offreNumero": 9,
+    "datePublication": "2025-06-10 00:00",
+    "titre": "Qatar Airways - Cabin Crew",
+    "entreprise": "Qatar Airways",
+    "etat": "En ligne",
+    "contenu": "Rejoignez l'équipe de Qatar Airways. Carrière internationale."
+  },
+  {
+    "id": "jo10",
+    "offreNumero": 10,
+    "datePublication": "2025-06-09 00:00",
+    "titre": "Turkish Airlines - Agent de réservation",
+    "entreprise": "Turkish Airlines",
+    "etat": "En ligne",
+    "contenu": "Poste d'agent de réservation. Maîtrise de plusieurs langues appréciée."
+  }
+]
+

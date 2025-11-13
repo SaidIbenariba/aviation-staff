@@ -51,7 +51,7 @@
     --card-foreground: #000000;
     --popover: #ffffff;
     --popover-foreground: #000000;
-    --primary: #0071e3; /* Apple Blue */
+    --primary: #1e40af; /* Aviation Staff Blue */
     --primary-foreground: #ffffff;
     --secondary: #f5f5f7; /* Apple Light Gray */
     --secondary-foreground: #1d1d1f;
@@ -77,6 +77,18 @@
     --sidebar-accent-foreground: #1d1d1f;
     --sidebar-border: #e2e2e7; /* Lighter border */
     --sidebar-ring: #0071e3;
+    /* Status colors for inspirations */
+    --status-pending: var(--chart-4); /* #ffcc00 - Yellow */
+    --status-pending-foreground: #000000;
+    --status-approved: var(--chart-2); /* #34c759 - Green */
+    --status-approved-foreground: #ffffff;
+    --status-rejected: var(--destructive); /* #ff3b30 - Red */
+    --status-rejected-foreground: #ffffff;
+    --status-archived: var(--muted-foreground); /* #86868b - Gray */
+    --status-archived-foreground: #ffffff;
+    /* Inspiration-specific variables */
+    --inspiration-card-hover: var(--accent);
+    --inspiration-image-overlay: rgba(0, 0, 0, 0.1);
     /* Apple Fonts */
     --font-apple-system:
         -apple-system, BlinkMacSystemFont, "San Francisco", "Helvetica Neue",

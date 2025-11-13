@@ -53,6 +53,19 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Aviation Staff colors
+        aviation: {
+          blue: {
+            DEFAULT: "#1e40af",
+            dark: "#1e3a8a",
+            light: "#3b82f6",
+          },
+          yellow: {
+            DEFAULT: "#fbbf24",
+            dark: "#f59e0b",
+            light: "#fcd34d",
+          },
+        },
         // Chart colors
         chart: {
           1: "hsl(var(--chart-1))",
@@ -60,6 +73,17 @@ const config = {
           3: "hsl(var(--chart-3))",
           4: "hsl(var(--chart-4))",
           5: "hsl(var(--chart-5))",
+        },
+        // Status colors for inspirations
+        status: {
+          pending: "var(--status-pending)",
+          "pending-foreground": "var(--status-pending-foreground)",
+          approved: "var(--status-approved)",
+          "approved-foreground": "var(--status-approved-foreground)",
+          rejected: "var(--status-rejected)",
+          "rejected-foreground": "var(--status-rejected-foreground)",
+          archived: "var(--status-archived)",
+          "archived-foreground": "var(--status-archived-foreground)",
         },
       },
       borderRadius: {

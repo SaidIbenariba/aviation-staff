@@ -1,0 +1,31 @@
+[
+  {
+    "id": "jsr1",
+    "dateInscription": "2025-05-10 10:00",
+    "nomComplet": "Mr John Doe",
+    "dateNaissance": "1995-03-15",
+    "email": "john.doe@example.com",
+    "telephone": "+33612345678",
+    "numeroPasseport": "FR123456",
+    "pays": "France",
+    "photo": null,
+    "documents": [],
+    "dateRejet": "2025-05-12 14:30",
+    "raisonRejet": "Documents incomplets"
+  },
+  {
+    "id": "jsr2",
+    "dateInscription": "2025-05-08 15:20",
+    "nomComplet": "Ms Jane Smith",
+    "dateNaissance": "1997-07-22",
+    "email": "jane.smith@example.com",
+    "telephone": "+33623456789",
+    "numeroPasseport": "GB987654",
+    "pays": "Royaume-Uni",
+    "photo": null,
+    "documents": [],
+    "dateRejet": "2025-05-10 09:15",
+    "raisonRejet": "Critères non remplis"
+  }
+]
+

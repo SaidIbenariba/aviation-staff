@@ -1,4 +1,4 @@
-import { db } from "@/db/drizzle";
+import { db, isDatabaseConfigured } from "@/db/drizzle";
 import { account, session, subscription, user, verification } from "@/db/schema";
 import {
   checkout,
@@ -12,6 +12,40 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { nextCookies } from "better-auth/next-js";
 
+// Create a minimal mock adapter for demo mode
+const createMockAdapter = () => {
+  return {
+    provider: "pg" as const,
+    adapter: {
+      user: {
+        create: async () => ({ id: "mock-user-id" }),
+        get: async () => null,
+        update: async () => ({}),
+        delete: async () => ({}),
+      },
+      session: {
+        create: async () => ({ id: "mock-session-id" }),
+        get: async () => null,
+        update: async () => ({}),
+        delete: async () => ({}),
+      },
+      account: {
+        create: async () => ({ id: "mock-account-id" }),
+        get: async () => null,
+        update: async () => ({}),
+        delete: async () => ({}),
+      },
+      verification: {
+        create: async () => ({ id: "mock-verification-id" }),
+        get: async () => null,
+        update: async () => ({}),
+        delete: async () => ({}),
+      },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any,
+  };
+};
+
 // Utility function to safely parse dates
 function safeParseDate(value: string | Date | null | undefined): Date | null {
   if (!value) return null;
@@ -19,10 +53,14 @@ function safeParseDate(value: string | Date | null | undefined): Date | null {
   return new Date(value);
 }
 
-const polarClient = new Polar({
-  accessToken: process.env.POLAR_ACCESS_TOKEN,
-  server: "sandbox",
-});
+// Only initialize Polar client if access token is configured
+const isPolarConfigured = !!process.env.POLAR_ACCESS_TOKEN;
+const polarClient = isPolarConfigured
+  ? new Polar({
+      accessToken: process.env.POLAR_ACCESS_TOKEN!,
+      server: "sandbox",
+    })
+  : null;
 
 export const auth = betterAuth({
   trustedOrigins: [`${process.env.NEXT_PUBLIC_APP_URL}`],
@@ -31,162 +69,177 @@ export const auth = betterAuth({
     enabled: true,
     maxAge: 5 * 60, // Cache duration in seconds
   },
-  database: drizzleAdapter(db, {
-    provider: "pg",
-    schema: {
-      user,
-      session,
-      account,
-      verification,
-      subscription,
-    },
-  }),
-  socialProviders: {
-    google: {
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    },
-  },
-  plugins: [
-    polar({
-      client: polarClient,
-      createCustomerOnSignUp: true,
-      use: [
-        checkout({
-          products: [
-            {
-              productId:
-                process.env.NEXT_PUBLIC_STARTER_TIER ||
-                (() => {
-                  throw new Error(
-                    "NEXT_PUBLIC_STARTER_TIER environment variable is required",
-                  );
-                })(),
-              slug:
-                process.env.NEXT_PUBLIC_STARTER_SLUG ||
-                (() => {
-                  throw new Error(
-                    "NEXT_PUBLIC_STARTER_SLUG environment variable is required",
-                  );
-                })(),
-            },
-          ],
-          successUrl: `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.POLAR_SUCCESS_URL}`,
-          authenticatedUsersOnly: true,
-        }),
-        portal(),
-        usage(),
-        webhooks({
-          secret:
-            process.env.POLAR_WEBHOOK_SECRET ||
-            (() => {
-              throw new Error(
-                "POLAR_WEBHOOK_SECRET environment variable is required",
-              );
-            })(),
-          onPayload: async ({ data, type }) => {
-            if (
-              type === "subscription.created" ||
-              type === "subscription.active" ||
-              type === "subscription.canceled" ||
-              type === "subscription.revoked" ||
-              type === "subscription.uncanceled" ||
-              type === "subscription.updated"
-            ) {
-              console.log("🎯 Processing subscription webhook:", type);
-              console.log("📦 Payload data:", JSON.stringify(data, null, 2));
-
-              try {
-                // STEP 1: Extract user ID from customer data
-                const userId = data.customer?.externalId;
-                // STEP 2: Build subscription data
-                const subscriptionData = {
-                  id: data.id,
-                  createdAt: new Date(data.createdAt),
-                  modifiedAt: safeParseDate(data.modifiedAt),
-                  amount: data.amount,
-                  currency: data.currency,
-                  recurringInterval: data.recurringInterval,
-                  status: data.status,
-                  currentPeriodStart:
-                    safeParseDate(data.currentPeriodStart) || new Date(),
-                  currentPeriodEnd:
-                    safeParseDate(data.currentPeriodEnd) || new Date(),
-                  cancelAtPeriodEnd: data.cancelAtPeriodEnd || false,
-                  canceledAt: safeParseDate(data.canceledAt),
-                  startedAt: safeParseDate(data.startedAt) || new Date(),
-                  endsAt: safeParseDate(data.endsAt),
-                  endedAt: safeParseDate(data.endedAt),
-                  customerId: data.customerId,
-                  productId: data.productId,
-                  discountId: data.discountId || null,
-                  checkoutId: data.checkoutId || "",
-                  customerCancellationReason:
-                    data.customerCancellationReason || null,
-                  customerCancellationComment:
-                    data.customerCancellationComment || null,
-                  metadata: data.metadata
-                    ? JSON.stringify(data.metadata)
-                    : null,
-                  customFieldData: data.customFieldData
-                    ? JSON.stringify(data.customFieldData)
-                    : null,
-                  userId: userId as string | null,
-                };
-
-                console.log("💾 Final subscription data:", {
-                  id: subscriptionData.id,
-                  status: subscriptionData.status,
-                  userId: subscriptionData.userId,
-                  amount: subscriptionData.amount,
-                });
-
-                // STEP 3: Use Drizzle's onConflictDoUpdate for proper upsert
-                await db
-                  .insert(subscription)
-                  .values(subscriptionData)
-                  .onConflictDoUpdate({
-                    target: subscription.id,
-                    set: {
-                      modifiedAt: subscriptionData.modifiedAt || new Date(),
-                      amount: subscriptionData.amount,
-                      currency: subscriptionData.currency,
-                      recurringInterval: subscriptionData.recurringInterval,
-                      status: subscriptionData.status,
-                      currentPeriodStart: subscriptionData.currentPeriodStart,
-                      currentPeriodEnd: subscriptionData.currentPeriodEnd,
-                      cancelAtPeriodEnd: subscriptionData.cancelAtPeriodEnd,
-                      canceledAt: subscriptionData.canceledAt,
-                      startedAt: subscriptionData.startedAt,
-                      endsAt: subscriptionData.endsAt,
-                      endedAt: subscriptionData.endedAt,
-                      customerId: subscriptionData.customerId,
-                      productId: subscriptionData.productId,
-                      discountId: subscriptionData.discountId,
-                      checkoutId: subscriptionData.checkoutId,
-                      customerCancellationReason:
-                        subscriptionData.customerCancellationReason,
-                      customerCancellationComment:
-                        subscriptionData.customerCancellationComment,
-                      metadata: subscriptionData.metadata,
-                      customFieldData: subscriptionData.customFieldData,
-                      userId: subscriptionData.userId,
-                    },
-                  });
-
-                console.log("✅ Upserted subscription:", data.id);
-              } catch (error) {
-                console.error(
-                  "💥 Error processing subscription webhook:",
-                  error,
-                );
-                // Don't throw - let webhook succeed to avoid retries
-              }
-            }
+  database: isDatabaseConfigured
+    ? drizzleAdapter(db, {
+        provider: "pg",
+        schema: {
+          user,
+          session,
+          account,
+          verification,
+          subscription,
+        },
+      })
+    : createMockAdapter(),
+  ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+    ? {
+        socialProviders: {
+          google: {
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
           },
-        }),
-      ],
-    }),
+        },
+      }
+    : {}),
+  plugins: [
+    ...(isPolarConfigured && polarClient
+      ? [
+          polar({
+            client: polarClient,
+            createCustomerOnSignUp: true,
+            use: [
+              checkout({
+                products: [
+                  {
+                    productId:
+                      process.env.NEXT_PUBLIC_STARTER_TIER ||
+                      (() => {
+                        throw new Error(
+                          "NEXT_PUBLIC_STARTER_TIER environment variable is required",
+                        );
+                      })(),
+                    slug:
+                      process.env.NEXT_PUBLIC_STARTER_SLUG ||
+                      (() => {
+                        throw new Error(
+                          "NEXT_PUBLIC_STARTER_SLUG environment variable is required",
+                        );
+                      })(),
+                  },
+                ],
+                successUrl: `${process.env.NEXT_PUBLIC_APP_URL}/${process.env.POLAR_SUCCESS_URL}`,
+                authenticatedUsersOnly: true,
+              }),
+              portal(),
+              usage(),
+              webhooks({
+                secret:
+                  process.env.POLAR_WEBHOOK_SECRET ||
+                  (() => {
+                    throw new Error(
+                      "POLAR_WEBHOOK_SECRET environment variable is required",
+                    );
+                  })(),
+                onPayload: async ({ data, type }) => {
+                  if (
+                    type === "subscription.created" ||
+                    type === "subscription.active" ||
+                    type === "subscription.canceled" ||
+                    type === "subscription.revoked" ||
+                    type === "subscription.uncanceled" ||
+                    type === "subscription.updated"
+                  ) {
+                    console.log("🎯 Processing subscription webhook:", type);
+                    console.log("📦 Payload data:", JSON.stringify(data, null, 2));
+
+                    try {
+                      // STEP 1: Extract user ID from customer data
+                      const userId = data.customer?.externalId;
+                      // STEP 2: Build subscription data
+                      const subscriptionData = {
+                        id: data.id,
+                        createdAt: new Date(data.createdAt),
+                        modifiedAt: safeParseDate(data.modifiedAt),
+                        amount: data.amount,
+                        currency: data.currency,
+                        recurringInterval: data.recurringInterval,
+                        status: data.status,
+                        currentPeriodStart:
+                          safeParseDate(data.currentPeriodStart) || new Date(),
+                        currentPeriodEnd:
+                          safeParseDate(data.currentPeriodEnd) || new Date(),
+                        cancelAtPeriodEnd: data.cancelAtPeriodEnd || false,
+                        canceledAt: safeParseDate(data.canceledAt),
+                        startedAt: safeParseDate(data.startedAt) || new Date(),
+                        endsAt: safeParseDate(data.endsAt),
+                        endedAt: safeParseDate(data.endedAt),
+                        customerId: data.customerId,
+                        productId: data.productId,
+                        discountId: data.discountId || null,
+                        checkoutId: data.checkoutId || "",
+                        customerCancellationReason:
+                          data.customerCancellationReason || null,
+                        customerCancellationComment:
+                          data.customerCancellationComment || null,
+                        metadata: data.metadata
+                          ? JSON.stringify(data.metadata)
+                          : null,
+                        customFieldData: data.customFieldData
+                          ? JSON.stringify(data.customFieldData)
+                          : null,
+                        userId: userId as string | null,
+                      };
+
+                      console.log("💾 Final subscription data:", {
+                        id: subscriptionData.id,
+                        status: subscriptionData.status,
+                        userId: subscriptionData.userId,
+                        amount: subscriptionData.amount,
+                      });
+
+                      // STEP 3: Use Drizzle's onConflictDoUpdate for proper upsert
+                      if (!isDatabaseConfigured) {
+                        console.warn('Database not configured, skipping subscription upsert');
+                        return;
+                      }
+                      
+                      await db
+                        .insert(subscription)
+                        .values(subscriptionData)
+                        .onConflictDoUpdate({
+                          target: subscription.id,
+                          set: {
+                            modifiedAt: subscriptionData.modifiedAt || new Date(),
+                            amount: subscriptionData.amount,
+                            currency: subscriptionData.currency,
+                            recurringInterval: subscriptionData.recurringInterval,
+                            status: subscriptionData.status,
+                            currentPeriodStart: subscriptionData.currentPeriodStart,
+                            currentPeriodEnd: subscriptionData.currentPeriodEnd,
+                            cancelAtPeriodEnd: subscriptionData.cancelAtPeriodEnd,
+                            canceledAt: subscriptionData.canceledAt,
+                            startedAt: subscriptionData.startedAt,
+                            endsAt: subscriptionData.endsAt,
+                            endedAt: subscriptionData.endedAt,
+                            customerId: subscriptionData.customerId,
+                            productId: subscriptionData.productId,
+                            discountId: subscriptionData.discountId,
+                            checkoutId: subscriptionData.checkoutId,
+                            customerCancellationReason:
+                              subscriptionData.customerCancellationReason,
+                            customerCancellationComment:
+                              subscriptionData.customerCancellationComment,
+                            metadata: subscriptionData.metadata,
+                            customFieldData: subscriptionData.customFieldData,
+                            userId: subscriptionData.userId,
+                          },
+                        });
+
+                      console.log("✅ Upserted subscription:", data.id);
+                    } catch (error) {
+                      console.error(
+                        "💥 Error processing subscription webhook:",
+                        error,
+                      );
+                      // Don't throw - let webhook succeed to avoid retries
+                    }
+                  }
+                },
+              }),
+            ],
+          }),
+        ]
+      : []),
     nextCookies(),
   ],
 });

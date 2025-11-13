@@ -1,0 +1,335 @@
+---
+description:Globals rule for Next.js SaaS Starter Kit
+globs:
+alwaysApply: true
+---
+
+# Next.js SaaS Starter Kit - Project Structure Rules
+  
+## Project Overview
+
+A comprehensive, production-ready SaaS starter kit built with Next.js 15, featuring authentication, subscriptions, AI integration, and modern UI components. The platform includes Better Auth for authentication, Polar.sh for subscription management, OpenAI for AI features, and Cloudflare R2 for file storage.
+
+## Architecture
+
+- **Framework**: Next.js 15.3.1 with App Router
+- **Language**: TypeScript with strict mode
+- **Styling**: Tailwind CSS v4 + shadcn/ui
+- **Database**: Neon PostgreSQL + Drizzle ORM
+- **Authentication**: Better Auth v1.2.8 with Google OAuth
+- **Payments**: Polar.sh for subscription management
+- **AI**: OpenAI SDK with AI SDK
+- **Storage**: Cloudflare R2 (S3-compatible API)
+- **Analytics**: PostHog for product analytics
+- **Deployment**: Vercel (recommended)
+
+## Directory Structure Rules
+
+### Root Level
+
+```
+├── app/                    # Next.js App Router pages and API routes
+├── components/             # Reusable UI components
+├── db/                     # Database configuration and schema
+├── hooks/                  # Custom React hooks
+├── lib/                    # Utility libraries and configurations
+├── public/                 # Static assets
+├── auth-schema.ts          # Better Auth schema definitions
+├── middleware.ts           # Next.js middleware
+├── drizzle.config.ts       # Drizzle ORM configuration
+└── package.json            # Dependencies and scripts
+```
+
+### App Structure (`app/`)
+
+```
+app/
+├── api/                    # API route handlers
+│   ├── auth/              # Better Auth API routes
+│   │   └── [...all]/      # Catch-all auth routes
+│   ├── chat/              # OpenAI chat API
+│   ├── subscription/      # Polar.sh webhook handler
+│   └── upload-image/      # Cloudflare R2 upload API
+├── dashboard/             # Protected dashboard area
+│   ├── _components/       # Dashboard-specific components
+│   │   ├── chart-interactive.tsx
+│   │   ├── chatbot.tsx
+│   │   ├── mode-toggle.tsx
+│   │   ├── navbar.tsx
+│   │   ├── section-cards.tsx
+│   │   └── sidebar.tsx
+│   ├── chat/             # AI chat interface
+│   ├── layout.tsx        # Dashboard layout with sidebar
+│   ├── page.tsx          # Dashboard home page
+│   ├── payment/          # Subscription management
+│   │   └── _components/
+│   │       └── manage-subscription.tsx
+│   ├── settings/         # User settings & profile
+│   └── upload/           # File upload with R2
+├── pricing/              # Public pricing page
+│   └── _component/
+│       └── pricing-table.tsx
+├── sign-in/              # Sign in page
+├── sign-up/              # Sign up page
+├── success/              # Payment success page
+├── privacy-policy/       # Privacy policy page
+├── terms-of-service/     # Terms of service page
+├── layout.tsx           # Root layout
+├── page.tsx             # Homepage
+└── globals.css          # Global styles
+```
+
+### Components Structure (`components/`)
+
+```
+components/
+├── ui/                   # shadcn/ui components
+│   ├── avatar.tsx
+│   ├── badge.tsx
+│   ├── button.tsx
+│   ├── card.tsx
+│   ├── chart.tsx
+│   ├── checkbox.tsx
+│   ├── dialog.tsx
+│   ├── dropdown-menu.tsx
+│   ├── form.tsx
+│   ├── input.tsx
+│   ├── label.tsx
+│   ├── progress.tsx
+│   ├── resizable.tsx
+│   ├── select.tsx
+│   ├── separator.tsx
+│   ├── sheet.tsx
+│   ├── skeleton.tsx
+│   ├── sonner.tsx
+│   ├── switch.tsx
+│   ├── tabs.tsx
+│   ├── textarea.tsx
+│   ├── toggle-group.tsx
+│   ├── toggle.tsx
+│   └── tooltip.tsx
+├── homepage/            # Landing page sections
+│   ├── footer.tsx
+│   ├── hero-section.tsx
+│   └── integrations.tsx
+├── logos/               # Technology logos
+│   ├── BetterAuth.tsx
+│   ├── NeonPostgres.tsx
+│   ├── Nextjs.tsx
+│   ├── Polar.tsx
+│   ├── shadcnui.tsx
+│   ├── TailwindCSS.tsx
+│   └── index.ts
+├── provider.tsx         # Theme and context providers
+└── user-profile.tsx     # User profile component
+```
+
+### Database Structure (`db/`)
+
+```
+db/
+├── schema.ts            # Drizzle ORM schema definitions
+│   ├── Better Auth tables: user, session, account, verification
+│   └── Subscription table for Polar.sh data
+├── drizzle.ts           # Database connection and client
+└── migrations/          # Database migrations
+    └── meta/            # Migration metadata
+```
+
+### Library Structure (`lib/`)
+
+```
+lib/
+├── auth.ts              # Better Auth configuration
+│   ├── Polar.sh integration
+│   ├── Google OAuth setup
+│   └── Session management
+├── auth-client.ts       # Client-side auth utilities
+├── subscription.ts      # Subscription utilities
+│   ├── getSubscriptionDetails()
+│   └── Subscription status checking
+├── upload-image.ts      # Cloudflare R2 upload utilities
+│   └── uploadImageAssets()
+└── utils.ts             # General utility functions
+```
+
+## Key Patterns and Conventions
+
+### Authentication & Authorization
+
+- **Better Auth v1.2.8** - Modern authentication system
+- **Session-based authentication** with database persistence
+- **Google OAuth integration** for social login
+- **Account linking** for multiple providers
+- **Cookie-based sessions** with secure configuration
+- **Protected routes** via Next.js middleware
+
+### Database Schema
+
+- **Better Auth tables**: `user`, `session`, `account`, `verification`
+- **Subscription table**: Stores Polar.sh subscription data
+- **Relations**: Foreign keys with cascade deletes
+- **Timestamps**: `createdAt` and `updatedAt` on all tables
+
+### API Structure
+
+- **Next.js API Routes** in `app/api/`
+- **RESTful endpoints** with consistent naming
+- **Zod validation** for request/response schemas
+- **Error handling** with consistent error responses
+- **File upload** via Cloudflare R2 with S3-compatible API
+- **Webhook handling** for Polar.sh subscription events
+
+### Component Architecture
+
+- **shadcn/ui components** in `components/ui/`
+- **Feature-specific components** organized by feature
+- **Layout components** for consistent page structure
+- **Custom hooks** for business logic and API calls
+- **Server and Client components** properly separated
+
+### State Management
+
+- **React Server Components** for server-side rendering
+- **React Query** (`@tanstack/react-query`) for client-side data fetching
+- **Local state** with React hooks for component-specific state
+- **URL state** for navigation and filters
+
+## File Naming Conventions
+
+### Pages & Routes
+
+- **Pages**: `page.tsx` (Next.js App Router)
+- **Layouts**: `layout.tsx`
+- **API Routes**: `route.ts`
+- **Middleware**: `middleware.ts`
+
+### Components
+
+- **Components**: `PascalCase.tsx`
+- **Private components**: `_components/` directory (Next.js convention)
+- **Hooks**: `useCamelCase.ts`
+- **Types**: `camelCase.ts`
+- **Utils**: `kebab-case.ts` or `camelCase.ts`
+
+## Import Paths
+
+- **Root alias**: Use `@/` alias for root directory (configured in `tsconfig.json`)
+- **Components**: `@/components/`
+- **Hooks**: `@/hooks/`
+- **Lib**: `@/lib/`
+- **DB**: `@/db/`
+- **App**: `@/app/` (if needed)
+
+## Development Guidelines
+
+### Code Organization
+
+1. **Feature-based structure** for components and pages
+2. **Separation of concerns** between UI, business logic, and data
+3. **Consistent error handling** across API routes
+4. **Type safety** with TypeScript throughout
+5. **Server Components by default**, Client Components when needed
+
+### API Development
+
+1. **Validation first** - all inputs validated with Zod
+2. **Error handling** - consistent error responses using ApiResponse format
+3. **Authentication** - use Better Auth session checking
+4. **Documentation** - clear API endpoint documentation
+5. **Webhook security** - verify webhook signatures
+
+### Frontend Development
+
+1. **Component composition** - build complex UIs from simple components
+2. **Custom hooks** - extract reusable logic
+3. **Server Components** - use for data fetching when possible
+4. **Client Components** - use for interactivity and browser APIs
+5. **Responsive design** - mobile-first approach with Tailwind
+6. **Loading states** - use skeletons and optimistic UI updates
+
+### Database Development
+
+1. **Schema-first** - define schemas in `db/schema.ts`
+2. **Migrations** - use Drizzle Kit for version control
+3. **Relations** - proper foreign key relationships
+4. **Indexes** - optimize query performance
+5. **Type safety** - use Drizzle ORM for type-safe queries
+
+## Technology Stack Details
+
+### Core Dependencies
+
+- **Next.js 15.3.1** with App Router and Turbopack
+- **React 19** with TypeScript
+- **Tailwind CSS v4** for styling
+- **shadcn/ui** for component library
+- **Radix UI** for accessible primitives
+- **Drizzle ORM** with PostgreSQL
+- **Better Auth v1.2.8** for authentication
+- **Polar.sh SDK** for subscription management
+- **OpenAI SDK** (`ai` package) for AI features
+- **Cloudflare R2** via AWS S3 SDK for file storage
+- **PostHog** for analytics
+- **React Query** for data fetching
+- **Zod** for validation
+- **Lucide React** for icons
+- **next-themes** for theme management
+- **Sonner** for toast notifications
+
+### Development Dependencies
+
+- **TypeScript 5** with strict mode
+- **Drizzle Kit** for database migrations
+- **ESLint** with Next.js config
+- **Tailwind CSS v4** PostCSS plugin
+
+## Security Considerations
+
+- **Better Auth** - secure session management with cookies
+- **Input validation** - Zod schemas on all inputs
+- **File upload security** - type and size restrictions for R2 uploads
+- **CORS configuration** - configured in Better Auth and R2
+- **Environment variables** - sensitive data in `.env.local`
+- **Webhook verification** - Polar.sh webhook signature validation
+- **SQL injection prevention** - Drizzle ORM parameterized queries
+
+## Performance Optimizations
+
+- **Database indexing** on frequently queried columns
+- **Image optimization** with Next.js Image component
+- **Code splitting** with Next.js dynamic imports
+- **Server Components** for reduced client bundle size
+- **React Query caching** for API responses
+- **Turbopack** for faster development builds
+- **Static generation** where possible
+
+## API Response Format
+
+Follow this format for all responses and requests for stability and consistency:
+
+```typescript
+export interface ApiResponse<T = unknown> {
+  success: boolean;
+  data?: T;
+  message?: string;
+  error?: {
+    code: string;
+    message: string;
+    details?: unknown;
+  };
+  meta?: {
+    page?: number;
+    limit?: number;
+    total?: number;
+    totalPages?: number;
+    [k: string]: unknown;
+  };
+  requestId?: string;
+  timestamp?: string;
+}
+```
+
+## Currency
+
+Use MAD (Moroccan Dirham) currency for all monetary values and pricing displays.
