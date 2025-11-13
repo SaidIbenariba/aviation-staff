@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
+import { getImageUrl } from "@/lib/utils/placeholder-image";
 import { ImageIcon } from "lucide-react";
 
 interface ImagePreviewProps {
@@ -30,19 +31,15 @@ export function ImagePreview({
 }: ImagePreviewProps) {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!src) {
-    return (
-      <Avatar className={cn(sizeClasses[size], className)}>
-        <AvatarFallback className="bg-muted text-muted-foreground">
-          {fallbackText ? (
-            fallbackText.charAt(0).toUpperCase()
-          ) : (
-            <ImageIcon className="h-4 w-4" />
-          )}
-        </AvatarFallback>
-      </Avatar>
-    );
-  }
+  // Get dimensions based on size
+  const dimensions = {
+    sm: { width: 100, height: 100 },
+    md: { width: 200, height: 200 },
+    lg: { width: 400, height: 300 },
+  }[size];
+
+  // Use placeholder if no src provided
+  const imageUrl = getImageUrl(src, dimensions.width, dimensions.height, fallbackText);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -55,7 +52,7 @@ export function ImagePreview({
           )}
         >
           <Image
-            src={src}
+            src={imageUrl}
             alt={alt}
             fill
             className="object-cover"
@@ -67,7 +64,7 @@ export function ImagePreview({
       <DialogContent className="max-w-4xl max-h-[90vh] p-0">
         <div className="relative w-full h-[80vh]">
           <Image
-            src={src}
+            src={imageUrl}
             alt={alt}
             fill
             className="object-contain"
