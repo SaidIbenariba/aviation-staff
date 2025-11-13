@@ -10,6 +10,15 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Redirect home page to dashboard
+  if (pathname === "/") {
+    if (sessionCookie) {
+      return NextResponse.redirect(new URL("/dashboard", request.url));
+    } else {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
+  }
+
   // Demo mode: allow dashboard access without authentication
   const isDemoMode = !process.env.DATABASE_URL || 
     process.env.DATABASE_URL === 'your-neon-database-url';
@@ -31,5 +40,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/sign-in", "/sign-up"],
+  matcher: ["/", "/dashboard/:path*", "/sign-in", "/sign-up"],
 };

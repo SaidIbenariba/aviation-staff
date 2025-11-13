@@ -20,8 +20,11 @@
 # production
 /build
 
+# npm
+.npm
+.npmrc
+
 # misc
-.DS_Store
 *.pem
 
 # debug
@@ -33,6 +36,7 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env
 .env.local
+.env*.local
 
 # vercel
 .vercel
@@ -41,4 +45,37 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-AuthKey_8LYJ3Y87D4.p8
+# IDE and editor files
+.cursor/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# OS files
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Auth keys
+AuthKey_*.p8
+*.p8
