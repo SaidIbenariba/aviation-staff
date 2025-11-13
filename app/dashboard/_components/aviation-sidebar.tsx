@@ -76,9 +76,11 @@ export default function AviationSidebar() {
       <div className="flex-1 flex flex-col items-center py-4">
         {/* Logo or icon at top */}
         <div className="mb-8">
-          <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center">
-            <span className="text-white font-bold text-lg">N</span>
-          </div>
+          <Link href="/dashboard" className="block">
+            <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+              <span className="text-white font-bold text-lg">N</span>
+            </div>
+          </Link>
         </div>
         
         {/* Menu items - vertical icons */}
@@ -142,9 +144,11 @@ export default function AviationSidebar() {
 
       {/* Bottom icon */}
       <div className="pb-4 flex justify-center">
-        <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center">
-          <span className="text-white font-bold text-lg">N</span>
-        </div>
+        <Link href="/dashboard" className="block">
+          <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
+            <span className="text-white font-bold text-lg">N</span>
+          </div>
+        </Link>
       </div>
     </div>
   );
