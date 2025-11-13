@@ -2,7 +2,6 @@
 
 import { DataTable, type Column } from "@/components/ui/data-table";
 import inspirationsPendingData from "@/lib/data/inspirations-pending.json";
-import { StatusBadge } from "../_components/status-badge";
 import { ImagePreview } from "../_components/image-preview";
 import { ActionButtons } from "../../_components/action-buttons";
 import { Badge } from "@/components/ui/badge";
@@ -118,20 +117,22 @@ export default function InspirationsPendingPage() {
     setIsViewModalOpen(true);
   };
 
-  const handleValidate = async (id: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleValidate = async (_id: string) => {
     try {
       // TODO: Call API to validate
       toast.success("Inspiration validée avec succès");
-    } catch (error) {
+    } catch {
       toast.error("Erreur lors de la validation");
     }
   };
 
-  const handleCancel = async (id: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleCancel = async (_id: string) => {
     try {
       // TODO: Call API to reject
       toast.success("Inspiration refusée");
-    } catch (error) {
+    } catch {
       toast.error("Erreur lors du refus");
     }
   };

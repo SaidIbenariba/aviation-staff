@@ -294,7 +294,7 @@ export default function NewInspirationPage() {
           <FormField
             control={form.control}
             name="image"
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormLabel>Image</FormLabel>
                 <FormControl>

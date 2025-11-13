@@ -25,7 +25,7 @@ export default function DashboardPage() {
       <div>
         <h1 className="text-3xl font-bold text-foreground">Tableau de bord</h1>
         <p className="text-muted-foreground mt-2 text-sm">
-          Vue d'ensemble de l'activité Aviation Staff
+          Vue d&apos;ensemble de l&apos;activité Aviation Staff
         </p>
       </div>
 

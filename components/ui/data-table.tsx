@@ -20,10 +20,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, ArrowUpDown } from "lucide-react";
 import type { DataTableState } from "@/lib/utils/data-table";
-import {
-  getFilteredSortedPaginatedData,
-  type SortDirection,
-} from "@/lib/utils/data-table";
+import { getFilteredSortedPaginatedData } from "@/lib/utils/data-table";
 
 export interface Column<T> {
   id: string;
@@ -38,7 +35,6 @@ interface DataTableProps<T> {
   columns: Column<T>[];
   searchableColumns?: (keyof T)[];
   initialState?: Partial<DataTableState>;
-  onAction?: (action: string, row: T) => void;
 }
 
 export function DataTable<T extends Record<string, unknown> = Record<string, unknown>>({
@@ -46,7 +42,6 @@ export function DataTable<T extends Record<string, unknown> = Record<string, unk
   columns,
   searchableColumns,
   initialState,
-  onAction,
 }: DataTableProps<T>) {
   const [state, setState] = React.useState<DataTableState>({
     pageIndex: 0,
@@ -85,12 +80,6 @@ export function DataTable<T extends Record<string, unknown> = Record<string, unk
 
       return { ...prev, sorting: newSorting, pageIndex: 0 };
     });
-  };
-
-  const getSortDirection = (columnId: string): SortDirection => {
-    const sort = state.sorting.find((s) => s.id === columnId);
-    if (!sort) return null;
-    return sort.desc ? "desc" : "asc";
   };
 
   return (

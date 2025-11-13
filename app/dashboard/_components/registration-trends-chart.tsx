@@ -51,7 +51,7 @@ export function RegistrationTrendsChart() {
           <div>
             <CardTitle>Tendances des inscriptions</CardTitle>
             <CardDescription>
-              Évolution des inscriptions de demandeurs d'emploi et professionnels
+              Évolution des inscriptions de demandeurs d&apos;emploi et professionnels
             </CardDescription>
           </div>
           <Select value={timeRange} onValueChange={(v) => setTimeRange(v as "7d" | "30d" | "90d")}>

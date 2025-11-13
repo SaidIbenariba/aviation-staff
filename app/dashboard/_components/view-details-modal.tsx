@@ -28,7 +28,7 @@ export function ViewDetailsModal({
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
-            Détails complets de l'enregistrement
+            Détails complets de l&apos;enregistrement
           </DialogDescription>
         </DialogHeader>
         <div className="space-y-4">

@@ -45,9 +45,9 @@ export function JobOffersTimelineChart() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Offres d'emploi publiées</CardTitle>
+            <CardTitle>Offres d&apos;emploi publiées</CardTitle>
             <CardDescription>
-              Timeline des offres d'emploi publiées
+              Timeline des offres d&apos;emploi publiées
             </CardDescription>
           </div>
           <Select value={timeRange} onValueChange={(v) => setTimeRange(v as "7d" | "30d" | "90d")}>

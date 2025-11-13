@@ -124,20 +124,22 @@ export default function InspirationsPage() {
     setIsViewModalOpen(true);
   };
 
-  const handleValidate = async (id: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleValidate = async (_id: string) => {
     try {
       // TODO: Call API to validate
       toast.success("Inspiration validée avec succès");
-    } catch (error) {
+    } catch {
       toast.error("Erreur lors de la validation");
     }
   };
 
-  const handleCancel = async (id: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleCancel = async (_id: string) => {
     try {
       // TODO: Call API to reject
       toast.success("Inspiration refusée");
-    } catch (error) {
+    } catch {
       toast.error("Erreur lors du refus");
     }
   };

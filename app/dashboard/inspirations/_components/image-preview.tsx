@@ -3,10 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import { getImageUrl } from "@/lib/utils/placeholder-image";
-import { ImageIcon } from "lucide-react";
 
 interface ImagePreviewProps {
   src: string | null | undefined;

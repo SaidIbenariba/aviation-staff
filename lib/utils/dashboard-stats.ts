@@ -186,7 +186,7 @@ function parseDate(dateString: string | null | undefined): Date | null {
       return new Date(dateString);
     }
     if (dateString.includes(" ")) {
-      const [datePart, timePart] = dateString.split(" ");
+      const [datePart] = dateString.split(" ");
       const [year, month, day] = datePart.split("-").map(Number);
       return new Date(year, month - 1, day);
     }

@@ -2,7 +2,6 @@
 
 import { DataTable, type Column } from "@/components/ui/data-table";
 import jobSeekersRejectedData from "@/lib/data/job-seekers-rejected.json";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ActionButtons } from "../../_components/action-buttons";
 
 interface JobSeekerRejected extends Record<string, unknown> {

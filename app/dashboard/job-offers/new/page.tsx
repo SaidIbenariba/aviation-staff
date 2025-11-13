@@ -6,7 +6,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -93,9 +92,9 @@ export default function NewJobOfferPage() {
               name="titre"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Titre de l'offre</FormLabel>
+                  <FormLabel>Titre de l&apos;offre</FormLabel>
                   <FormControl>
-                    <Input placeholder="Titre de l'offre" {...field} />
+                    <Input placeholder="Titre de l&apos;offre" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -107,7 +106,7 @@ export default function NewJobOfferPage() {
               name="dateOffre"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Date de l'offre</FormLabel>
+                  <FormLabel>Date de l&apos;offre</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input
@@ -132,7 +131,7 @@ export default function NewJobOfferPage() {
                 <FormLabel>Contenu</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Contenu de l'offre..."
+                    placeholder="Contenu de l&apos;offre..."
                     className="min-h-[300px]"
                     {...field}
                   />
@@ -150,7 +149,7 @@ export default function NewJobOfferPage() {
                 <FormItem>
                   <FormLabel>Entreprise</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nom de l'entreprise" {...field} />
+                    <Input placeholder="Nom de l&apos;entreprise" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

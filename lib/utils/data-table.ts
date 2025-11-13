@@ -1,5 +1,3 @@
-import { type ColumnDef } from "@tanstack/react-table";
-
 export type SortDirection = "asc" | "desc" | null;
 
 export interface DataTableState {

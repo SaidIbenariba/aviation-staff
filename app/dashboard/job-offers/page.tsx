@@ -54,7 +54,7 @@ export default function JobOffersPage() {
     <div className="p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-gray-900">
-          Liste des offres d'emploi
+          Liste des offres d&apos;emploi
         </h1>
       </div>
       <DataTable

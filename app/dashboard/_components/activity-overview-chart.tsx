@@ -53,7 +53,7 @@ export function ActivityOverviewChart() {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div>
-            <CardTitle>Vue d'ensemble de l'activité</CardTitle>
+            <CardTitle>Vue d&apos;ensemble de l&apos;activité</CardTitle>
             <CardDescription>
               Activité combinée : inscriptions, offres et inspirations
             </CardDescription>

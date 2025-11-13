@@ -5,7 +5,7 @@ import jobSeekersPendingData from "@/lib/data/job-seekers-pending.json";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ActionButtons } from "../../_components/action-buttons";
 import { Button } from "@/components/ui/button";
-import { FileText, Image, X } from "lucide-react";
+import { FileText, Image as ImageIcon, X } from "lucide-react";
 
 interface JobSeekerPending extends Record<string, unknown> {
   id: string;
@@ -89,7 +89,7 @@ const columns: Column<JobSeekerPending>[] = [
           <FileText className="h-4 w-4 text-blue-600" />
         </Button>
         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-          <Image className="h-4 w-4 text-green-600" />
+          <ImageIcon className="h-4 w-4 text-green-600" />
         </Button>
         <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
           <X className="h-4 w-4 text-red-600" />

@@ -237,7 +237,7 @@ export default function EditInspirationPage() {
     <div className="p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold text-foreground">
-          Modifier l'inspiration
+          Modifier l&apos;inspiration
         </h1>
       </div>
 
@@ -376,7 +376,7 @@ export default function EditInspirationPage() {
           <FormField
             control={form.control}
             name="image"
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormLabel>Image</FormLabel>
                 <FormControl>
