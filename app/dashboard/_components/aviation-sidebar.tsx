@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
@@ -77,8 +78,14 @@ export default function AviationSidebar() {
         {/* Logo or icon at top */}
         <div className="mb-8">
           <Link href="/dashboard" className="block">
-            <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
-              <span className="text-white font-bold text-lg">N</span>
+            <div className="w-10 h-10 rounded-full overflow-hidden bg-white flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer border border-gray-200">
+              <Image
+                src="/aviationstaff.logo"
+                alt="Aviation Staff Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+              />
             </div>
           </Link>
         </div>
@@ -142,14 +149,6 @@ export default function AviationSidebar() {
         </div>
       </div>
 
-      {/* Bottom icon */}
-      <div className="pb-4 flex justify-center">
-        <Link href="/dashboard" className="block">
-          <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-gray-700 transition-colors cursor-pointer">
-            <span className="text-white font-bold text-lg">N</span>
-          </div>
-        </Link>
-      </div>
     </div>
   );
 }

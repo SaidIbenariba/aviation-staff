@@ -117,22 +117,48 @@ export default function InspirationsPendingPage() {
     setIsViewModalOpen(true);
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleValidate = async (_id: string) => {
+  const handleValidate = async (id: string) => {
     try {
-      // TODO: Call API to validate
+      const response = await fetch(`/api/inspirations/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ statut: "approved" }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to validate inspiration");
+      }
+
       toast.success("Inspiration validée avec succès");
-    } catch {
+      // Refresh the page to show updated status
+      window.location.reload();
+    } catch (error) {
+      console.error("Error validating inspiration:", error);
       toast.error("Erreur lors de la validation");
     }
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleCancel = async (_id: string) => {
+  const handleCancel = async (id: string) => {
     try {
-      // TODO: Call API to reject
+      const response = await fetch(`/api/inspirations/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ statut: "rejected" }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to reject inspiration");
+      }
+
       toast.success("Inspiration refusée");
-    } catch {
+      // Refresh the page to show updated status
+      window.location.reload();
+    } catch (error) {
+      console.error("Error rejecting inspiration:", error);
       toast.error("Erreur lors du refus");
     }
   };
