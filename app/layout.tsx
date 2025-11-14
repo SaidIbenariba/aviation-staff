@@ -8,8 +8,8 @@ export const metadata: Metadata = {
   description:
     "Aviation Staff - Plateforme de gestion pour l'emploi dans l'aviation",
   icons: {
-    icon: "/aviationstaff.logo",
-    apple: "/aviationstaff.logo",
+    icon: "/aviationstaff.png",
+    apple: "/aviationstaff.png",
   },
   openGraph: {
     title: "Aviation Staff",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: "Aviation Staff",
     images: [
       {
-        url: "/aviationstaff.logo",
+        url: "/aviationstaff.png",
         width: 400,
         height: 400,
         alt: "Aviation Staff Logo",

@@ -9,25 +9,32 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription, SheetTrigger } from "@/components/ui/sheet";
 import AviationSidebar from "./aviation-sidebar";
 
 export default function AviationNavbar({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col h-screen overflow-hidden flex-1">
-      <header className="flex h-14 items-center justify-end gap-4 border-b bg-white px-6">
+      <header className="flex h-14 items-center justify-between gap-4 border-b bg-white px-6">
         <Sheet>
           <SheetTrigger asChild className="lg:hidden">
             <Button variant="ghost" size="icon">
               <Menu className="h-5 w-5" />
+              <span className="sr-only">Ouvrir le menu</span>
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-64 p-0">
-            <AviationSidebar />
+            <SheetHeader className="sr-only">
+              <SheetTitle>Navigation</SheetTitle>
+              <SheetDescription>
+                Menu de navigation principal du tableau de bord Aviation Staff
+              </SheetDescription>
+            </SheetHeader>
+            <AviationSidebar mobile />
           </SheetContent>
         </Sheet>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 ml-auto">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center gap-2 h-auto py-2">

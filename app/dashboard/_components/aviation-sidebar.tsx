@@ -67,7 +67,72 @@ const menuItems: MenuItem[] = [
 ];
 
 
-export default function AviationSidebar() {
+interface AviationSidebarProps {
+  mobile?: boolean;
+}
+
+export default function AviationSidebar({ mobile = false }: AviationSidebarProps) {
+  if (mobile) {
+    // Mobile version - full width with labels
+    return (
+      <div className="flex flex-col h-full bg-gray-100">
+        <div className="flex-1 flex flex-col py-4 px-4">
+          {/* Logo */}
+          <div className="mb-8">
+            <Link href="/dashboard" className="block">
+              <div className="w-12 h-12 rounded-full overflow-hidden bg-white flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer border border-gray-200">
+                <Image
+                  src="/aviationstaff.png"
+                  alt="Aviation Staff Logo"
+                  width={48}
+                  height={48}
+                  className="object-contain"
+                />
+              </div>
+            </Link>
+          </div>
+          
+          {/* Menu items with labels */}
+          <div className="flex flex-col gap-2">
+            {menuItems.map((item) => {
+              if (item.children && item.children.length > 0) {
+                return (
+                  <div key={item.label} className="space-y-1">
+                    <div className="px-3 py-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">
+                      {item.label}
+                    </div>
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href}
+                        href={child.href!}
+                        className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-white hover:text-aviation-blue-dark transition-colors"
+                      >
+                        <child.icon className="h-5 w-5" />
+                        <span>{child.label}</span>
+                      </Link>
+                    ))}
+                  </div>
+                );
+              }
+              
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href || "#"}
+                  className="flex items-center gap-3 px-3 py-2 rounded-lg text-gray-700 hover:bg-white hover:text-aviation-blue-dark transition-colors"
+                >
+                  <item.icon className="h-5 w-5" />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop version - icon only
   return (
     <div className="hidden lg:flex flex-col w-16 h-screen bg-gray-100 border-r border-gray-200">
       <div className="flex-1 flex flex-col items-center py-4">
@@ -76,7 +141,7 @@ export default function AviationSidebar() {
           <Link href="/dashboard" className="block">
             <div className="w-10 h-10 rounded-full overflow-hidden bg-white flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer border border-gray-200">
               <Image
-                src="/aviationstaff.logo"
+                src="/aviationstaff.png"
                 alt="Aviation Staff Logo"
                 width={40}
                 height={40}
