@@ -27,9 +27,17 @@ export type SubscriptionDetailsResult = {
 
 export async function getSubscriptionDetails(): Promise<SubscriptionDetailsResult> {
   try {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    // Handle build-time gracefully - headers() is not available during static generation
+    let session;
+    try {
+      const headersList = await headers();
+      session = await auth.api.getSession({
+        headers: headersList,
+      });
+    } catch {
+      // During build time or when headers are not available, return no subscription
+      return { hasSubscription: false };
+    }
 
     if (!session?.user?.id) {
       return { hasSubscription: false };
