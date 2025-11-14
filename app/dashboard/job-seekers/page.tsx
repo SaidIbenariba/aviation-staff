@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { DataTable, type Column } from "@/components/ui/data-table";
 import jobSeekersData from "@/lib/data/job-seekers.json";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -13,6 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { exportToCSV, generateFilenameWithDate } from "@/lib/utils/csv-export";
+import { toast } from "sonner";
 
 interface JobSeeker extends Record<string, unknown> {
   id: string;
@@ -109,6 +112,70 @@ const columns: Column<JobSeeker>[] = [
 ];
 
 export default function JobSeekersPage() {
+  const [isExporting, setIsExporting] = useState(false);
+
+  const handleExportList = () => {
+    try {
+      setIsExporting(true);
+
+      const headers = [
+        "Date d'inscription",
+        "Nom Complet",
+        "Date de naissance",
+        "Email",
+        "Téléphone",
+        "N° de Passeport",
+        "Pays",
+      ];
+
+      const fields: (keyof JobSeeker)[] = [
+        "dateInscription",
+        "nomComplet",
+        "dateNaissance",
+        "email",
+        "telephone",
+        "numeroPasseport",
+        "pays",
+      ];
+
+      const filename = generateFilenameWithDate("demandeurs-emploi");
+
+      exportToCSV(jobSeekersData as JobSeeker[], headers, fields, filename);
+
+      toast.success("Liste exportée avec succès");
+    } catch (error) {
+      console.error("Error exporting list:", error);
+      toast.error("Erreur lors de l'export de la liste");
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const handleExtractCVs = () => {
+    try {
+      // Check if any job seeker has documents
+      const hasDocuments = jobSeekersData.some(
+        (seeker) => Array.isArray(seeker.documents) && seeker.documents.length > 0
+      );
+
+      if (!hasDocuments) {
+        toast.info(
+          "Aucun CV disponible pour le moment. Les CVs seront disponibles une fois que les candidats auront téléchargé leurs documents."
+        );
+        return;
+      }
+
+      // In demo mode, show message about feature
+      // In production, this would create a ZIP file with all CVs
+      toast.info(
+        "Fonctionnalité d'extraction des CVs en cours de développement. Cette fonctionnalité permettra de télécharger tous les CVs en un fichier ZIP."
+      );
+    } catch (error) {
+      console.error("Error extracting CVs:", error);
+      toast.error("Erreur lors de l'extraction des CVs");
+    }
+  };
+
   return (
     <div className="p-6">
       <div className="mb-6 flex items-center justify-between">
@@ -116,11 +183,15 @@ export default function JobSeekersPage() {
           Liste des utilisateurs inscrits sur le site
         </h1>
         <div className="flex items-center gap-2">
-          <Button variant="outline">
+          <Button
+            variant="outline"
+            onClick={handleExportList}
+            disabled={isExporting}
+          >
             <Download className="h-4 w-4 mr-2" />
-            Exporter la liste
+            {isExporting ? "Export en cours..." : "Exporter la liste"}
           </Button>
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleExtractCVs}>
             <FileText className="h-4 w-4 mr-2" />
             Extraire les CVs
           </Button>

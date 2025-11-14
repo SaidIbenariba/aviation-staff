@@ -2,8 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
 import {
   Users,
   Briefcase,
@@ -70,8 +68,6 @@ const menuItems: MenuItem[] = [
 
 
 export default function AviationSidebar() {
-  const pathname = usePathname();
-
   return (
     <div className="hidden lg:flex flex-col w-16 h-screen bg-gray-100 border-r border-gray-200">
       <div className="flex-1 flex flex-col items-center py-4">
@@ -93,20 +89,12 @@ export default function AviationSidebar() {
         {/* Menu items - vertical icons */}
         <div className="flex flex-col gap-4">
           {menuItems.map((item) => {
-            const isActive = pathname === item.href || 
-              item.children?.some((child) => pathname === child.href);
-            
             if (item.children && item.children.length > 0) {
               return (
                 <DropdownMenu key={item.label}>
                   <DropdownMenuTrigger asChild>
                     <button
-                      className={cn(
-                        "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
-                        isActive
-                          ? "bg-white text-aviation-blue-dark shadow-sm"
-                          : "text-gray-600 hover:bg-white hover:text-aviation-blue-dark"
-                      )}
+                      className="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-gray-600 hover:bg-white hover:text-aviation-blue-dark"
                       title={item.label}
                     >
                       <item.icon className="h-5 w-5" />
@@ -115,12 +103,7 @@ export default function AviationSidebar() {
                   <DropdownMenuContent side="right" align="start" className="ml-2">
                     {item.children.map((child) => (
                       <DropdownMenuItem key={child.href} asChild>
-                        <Link
-                          href={child.href!}
-                          className={cn(
-                            pathname === child.href && "bg-accent"
-                          )}
-                        >
+                        <Link href={child.href!}>
                           {child.label}
                         </Link>
                       </DropdownMenuItem>
@@ -134,12 +117,7 @@ export default function AviationSidebar() {
               <Link
                 key={item.label}
                 href={item.href || "#"}
-                className={cn(
-                  "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
-                  isActive
-                    ? "bg-white text-aviation-blue-dark shadow-sm"
-                    : "text-gray-600 hover:bg-white hover:text-aviation-blue-dark"
-                )}
+                className="w-10 h-10 rounded-lg flex items-center justify-center transition-colors text-gray-600 hover:bg-white hover:text-aviation-blue-dark"
                 title={item.label}
               >
                 <item.icon className="h-5 w-5" />
